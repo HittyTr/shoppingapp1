@@ -1,0 +1,21 @@
+.responsive{
+    width: auto;
+  max-height: 100px;
+  
+  padding-top: 10%;
+}
+.responsiveList{
+    height: auto;
+    max-width: 280px;
+    padding-top: 4%;
+}
+.inputQuant{
+  max-width: 25px;
+  margin-top: 3px;
+  margin-left: 2px;
+}
+
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
