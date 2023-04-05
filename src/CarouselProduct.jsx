@@ -2,6 +2,7 @@ import React from "react";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import products from "./data/products";
+import { Link } from "react-router-dom";
 function CarouselProduct(){
   const [index] = React.useState(['0', '1', '2']);
   const selectedProducts = products.filter((product) => index.includes(product.id));
@@ -12,7 +13,9 @@ return(
 
       selectedProducts.map((product) => {
         return (
+         
           <Carousel.Item>
+             <Link to={`/item/:${product.id}`}>
             <Row>
               <Col>
                 <img
@@ -30,7 +33,9 @@ return(
                 </div>
               </Col>
             </Row>
+            </Link>
           </Carousel.Item>
+        
         );
       }
       )

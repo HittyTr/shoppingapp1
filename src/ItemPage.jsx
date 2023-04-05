@@ -1,13 +1,21 @@
-import React from "react";
+import React,{useState} from "react";
 import {Button, Card, Col,Row} from 'react-bootstrap'
 import products from './data/products';
+import { findquantity } from "./function";
 
 function ItemPage(props){
-    const{findquantity, handleQuantity, selectId, handleAddToCart, handleIncrement, handleDecrement}=props
+    const{ list, handleQuantity, selectId, handleAddToCart, handleIncrement, handleDecrement}=props
+    const [quantity, setQuantity]=useState(1)
     const inputChange=(e)=>{
-        handleQuantity(selectId, e.target.value)
+        if(findquantity(list,selectId)){
+            handleQuantity(selectId,e.target.value)
+        }
+        else{
+            setQuantity(e.target.value)
+        }
     }
-    
+
+
     return(
         <Card style={{marginLeft:'20%' , marginTop:'10%' ,maxWidth:'50%', height:'400px'}}>
         <Row>
@@ -28,10 +36,10 @@ function ItemPage(props){
                 <Col xs={4}>
                <Row >
                     <Col className="p-0" xs={3}>
-                    <Button disabled={findquantity(selectId)?false:true} onClick={()=>handleDecrement(selectId)}  variant="light">-</Button>
+                    <Button disabled={findquantity(list,selectId)?false:true} onClick={()=>handleDecrement(selectId)}  variant="light">-</Button>
                     </Col>
                     <Col className="p-0" xs={4}>
-                    <input type='number'  value={findquantity(selectId)} onChange={inputChange} className="inputQuant"/>
+                    <input type='number'  value={findquantity(list,selectId)?findquantity(list,selectId):quantity} onChange={inputChange} className="inputQuant"/>
                     </Col>
                     <Col className="p-0" xs={3}>
                     <Button  onClick={()=>handleIncrement(selectId)} variant="light">+</Button>
@@ -41,7 +49,7 @@ function ItemPage(props){
                 
                 </Col>
                 <Col  xs={5}>
-                <Button onClick={()=>handleAddToCart(selectId)} variant="success">Add to Card </Button>
+                <Button onClick={()=>handleAddToCart(selectId,quantity)} variant="success">Add to Card </Button>
                 </Col>
                 
             </Row>

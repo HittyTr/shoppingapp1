@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
@@ -15,11 +15,11 @@ function NavUser(props){
         <Navbar style={{height:'80px'}} key={'xs'} bg="light" expand={'xs'} className="p-0">
           <Container fluid className="p-0 text-center">
             <Row style ={{marginLeft:'5px'}}className="w-100">
-              <Col className='mt-3' xs={3}>
-                <Navbar.Brand > KorayApp</Navbar.Brand>
+              <Col  xs={3}>
+              <Link to={'/'}> <Navbar.Brand className='m-0 p-0' style={{maxHeight:'65px',width:'auto'}} as={Image} src={'../images/logo.jpg'} ></Navbar.Brand></Link>
               </Col>
-              <Col xs={7}>
-                <Navbar.Brand onClick={()=>navigate('/')} className='m-0 p-0' style={{maxHeight:'65px',width:'auto'}} as={Image} src={'../images/logo.jpg'} ></Navbar.Brand>
+              <Col className='mt-3' xs={7}>
+              <Navbar.Brand > KorayApp</Navbar.Brand>
               </Col>
               <Col  style={{padding:'10px 45px 0px 0px', height:'60%', textAlign:'end'}} xs={2}>
                 <Button onClick={()=>navigate('/checkout')} 

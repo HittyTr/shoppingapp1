@@ -45,7 +45,6 @@ function App() {
    
     let correctuser = data.find((userInfo) => (userInfo.username === user.username )&&( userInfo.password===user.password));
     if (correctuser) {
-        setShowLog(true);
         setIsLogin(true);
         setUserId(correctuser.id)
 
@@ -151,25 +150,20 @@ function App() {
     })
   }
 
-  const handleAddToCart=(id)=>{ 
-      if(userList.length>0){
-        const x=userList.find((item)=>item[0].id===id)
-        if(x){
+  const handleAddToCart=(id,quantity)=>{ 
+    const x=userList.find((item)=>item[0].id===id)
+     if(x){
         handleIncrement(id)
           return
         }
+      
+      else if(quantity!==1&&!x){
+        handleQuantity(id,quantity)
+        return
       }
+      else if(quantity===1&&!x){
       const product=products.find((item)=>item.id===id)
       setUserList([...userList,[product,1]])
-    }
-
-  const findquantity=(id)=>{
-    const x=userList.find((item)=>item[0].id===id)
-    if(x){
-      return x[1]
-    }
-    else{
-      return 0
     }
   }
 
@@ -211,16 +205,7 @@ function App() {
     newList.splice(index,1)
     setUserList(newList)
   }
-  const calculateTotal=()=>{
-    const calculatePrice = x => {
-      return x.split('.').join('').replace(',', '.')
-    }
-    let total=0
-    userList.forEach((item)=>{
-      total=total+(parseFloat(calculatePrice(item[0].price))*item[1])
-    })
-    return total
-  }
+
   return (
     <>
     
@@ -228,8 +213,8 @@ function App() {
     
     <Routes>
       <Route path="/" element={<ItemList handleAddToCart={handleAddToCart}  itemNavigate={itemNavigate}/>}/>
-      <Route path= {`/item/:${selectId}`} element={<ItemPage list={userList} findquantity={findquantity} handleQuantity={handleQuantity} handleDecrement={handleDecrement} handleIncrement={handleIncrement} handleAddToCart={handleAddToCart} selectId={selectId}/>}/>
-      <Route path="/checkout" element={<CheckoutCard calculateTotal={calculateTotal}handleDelete={handleDelete} list={userList} handleDecrement={handleDecrement} handleIncrement={handleIncrement}/>}/>
+      <Route path= {`/item/:${selectId}`} element={<ItemPage list={userList}  handleQuantity={handleQuantity} handleDecrement={handleDecrement} handleIncrement={handleIncrement} handleAddToCart={handleAddToCart} selectId={selectId}/>}/>
+      <Route path="/checkout" element={<CheckoutCard handleDelete={handleDelete} list={userList} handleDecrement={handleDecrement} handleIncrement={handleIncrement}/>}/>
       <Route path="/signin" element={<Login 
         handleChange={handleChange}  
         validateUser={handleLogin}

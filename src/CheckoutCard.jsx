@@ -2,9 +2,10 @@ import React from "react";
 
 import { CardGroup, Row, Stack, Card, Col, Button } from "react-bootstrap";
 import CheckoutItem from "./CheckoutItem";
+import { calculateTotal } from "./function";
 
 function CheckoutCard(props){
-    const{list, handleDelete, calculateTotal, handleDecrement, handleIncrement}=props
+    const{list, handleDelete, handleDecrement, handleIncrement}=props
    
     return(
         list.length===0? <h1 className="text-center" style={{margin:'15% 15% 0 15%' }}>Cart is empty</h1>:
@@ -38,7 +39,7 @@ function CheckoutCard(props){
                     Subtotal ({list.length} items)
                     </Col>
                     <Col className="text-end">
-                  {calculateTotal()} TL
+                  {calculateTotal(list)} TL
                     </Col>
                 </Card.Text>
                 <Card.Text className='mb-4' as={Row}>
@@ -54,7 +55,7 @@ function CheckoutCard(props){
                     Total
                     </Col>
                     <Col className="text-end">
-                    {calculateTotal()+Number(15.45)} TL
+                    {calculateTotal(list)+Number(15.45)} TL
                     </Col>
                 </Card.Text >
                 <Button variant="success">Proceed to checkout</Button>
